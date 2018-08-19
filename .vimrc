@@ -33,6 +33,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-surround'
+Plug 'dyng/ctrlsf.vim'
 
 " Initialize plugin system
 call plug#end()
