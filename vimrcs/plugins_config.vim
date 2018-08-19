@@ -172,6 +172,8 @@ let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 let g:acp_enableAtStartup = 0
 set completeopt-=preview
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+let g:ycm_cache_omnifunc=0  
+let g:ycm_seed_identifiers_with_syntax=1    
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
@@ -185,10 +187,12 @@ let g:ycm_complete_in_strings=1
 let g:ycm_key_invoke_completion = '<c-z>'
 noremap <c-z> <NOP>
 highlight Pmenu ctermfg=15 ctermbg=0 guifg=#ffffff guibg=#000000
-let g:ycm_semantic_triggers =  {
-            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-            \ 'cs,lua,javascript': ['re!\w{2}'],
-            \ }
+
+"which is confic with ultisnips
+" let g:ycm_semantic_triggers =  {
+"             \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+"             \ 'cs,lua,javascript': ['re!\w{2}'],
+"             \ }
 
 
 filetype indent on
