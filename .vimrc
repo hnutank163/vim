@@ -31,6 +31,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Using a non-master branch
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-surround'
 
 " Initialize plugin system
 call plug#end()
