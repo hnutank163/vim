@@ -34,7 +34,7 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-surround'
 Plug 'dyng/ctrlsf.vim'
-
+Plug 'skywind3000/gutentags_plus'
 " Initialize plugin system
 call plug#end()
 

@@ -136,25 +136,16 @@ let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++11'
 let g:gitgutter_enabled=0
 nnoremap <silent> <leader>d :GitGutterToggle<cr>
 
-" YouCompleteMe
-let g:acp_enableAtStartup = 0
 
-" enable completion from tags
-let g:ycm_collect_identifiers_from_tags_files = 1
-
-" remap Ultisnips for compatibility for YCM
-let g:UltiSnipsExpandTrigger = '<C-j>'
-let g:UltiSnipsJumpForwardTrigger = '<C-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+" autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 " Haskell post write lint and check with ghcmod
 " $ `cabal install ghcmod` if missing and ensure
@@ -172,25 +163,35 @@ endif
 
 " Disable the neosnippet preview candidate window
 " When enabled, there can be too much visual noise
-" especially when splits are used.
+" remap Ultisnips for compatibility for YCM
+let g:UltiSnipsExpandTrigger = '<C-j>'
+let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+
+" YouCompleteMe
+let g:acp_enableAtStartup = 0
 set completeopt-=preview
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-"nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-"Do not ask when starting vim
 let g:ycm_confirm_extra_conf = 0
-let g:syntastic_always_populate_loc_list = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_min_num_of_chars_for_completion = 2
-let g:ycm_cache_omnifunc=0
-let g:ycm_seed_identifiers_with_syntax=1
-set tags+=./.tags
-"nmap <F4> :YcmDiags<CR>
-set completeopt=menu,menuone
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_show_diagnostics_ui=0
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_server_log_level = 'info'
+let g:ycm_min_num_identifier_candidate_chars = 2
+let g:ycm_min_num_of_chars_for_completion = 2
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_complete_in_strings=1
+let g:ycm_key_invoke_completion = '<c-z>'
+noremap <c-z> <NOP>
+highlight Pmenu ctermfg=15 ctermbg=0 guifg=#ffffff guibg=#000000
+let g:ycm_semantic_triggers =  {
+            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+            \ 'cs,lua,javascript': ['re!\w{2}'],
+            \ }
 
-: filetype indent on
+
+filetype indent on
 set et
 set ci
 set shiftwidth=4
@@ -198,6 +199,9 @@ autocmd FileType make setlocal noexpandtab
 
 au FileType xml  setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 
+"gnu global tags
+let $GTAGSLABEL = 'native-pygments'
+let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
 
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
@@ -205,7 +209,16 @@ let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
 
-" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+" 同时开启 ctags 和 gtags 支持：
+let g:gutentags_modules = []"
+if executable('ctags')
+   let g:gutentags_modules += ['ctags']
+endif
+
+if executable('gtags-cscope') && executable('gtags')
+       let g:gutentags_modules += ['gtags_cscope']
+endif
+"tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
 let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
 
@@ -213,6 +226,12 @@ let g:gutentags_cache_dir = s:vim_tags
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+" 如果使用 universal ctags 需要增加下面一行
+let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+
+" 禁用 gutentags 自动加载 gtags 数据库的行为
+let g:gutentags_auto_add_gtags_cscope = 0
 
 " 检测 ~/.cache/tags 不存在就新建
 if !isdirectory(s:vim_tags)
@@ -240,7 +259,7 @@ let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 
 "echodoc config
 set noshowmode 
-let g:echodoc_enable=1
+let g:echodoc#enable_at_startup = 1
 "set cmdheight=2
 
 "vim-airline
