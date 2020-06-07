@@ -27,9 +27,17 @@ set guioptions-=R
 set guioptions-=l
 set guioptions-=L
 
-" Colorscheme
+" true color
+set termguicolors
+if &term =~# '^screen'
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
+"Colorscheme
 set background=dark
-colorscheme peaksea
+" colorscheme solarized8_dark
+colorscheme solarized8_light
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

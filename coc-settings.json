@@ -1,0 +1,6 @@
+{
+    "tabnine.priority": 1,
+    "go.goplsOptions": {
+        "completeUnimported": true
+    }
+}

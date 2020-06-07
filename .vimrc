@@ -7,7 +7,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 "YoucompleteMe
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 
 "ctrp mru function tags
 Plug 'Yggdroot/LeaderF'
@@ -35,6 +35,17 @@ Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-surround'
 Plug 'dyng/ctrlsf.vim'
 Plug 'skywind3000/gutentags_plus'
+Plug 'flazz/vim-colorschemes'
+Plug 'hzchirs/vim-material'
+Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'sheerun/vim-polyglot'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'justinmk/vim-sneak'
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
+
 " Initialize plugin system
 call plug#end()
 
